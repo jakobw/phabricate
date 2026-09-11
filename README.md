@@ -4,7 +4,7 @@ Create a batch of Phabricator subtasks from a markdown bullet list.
 
 ## Setup
 
-Create an API token at `https://phabricator.wikimedia.org/settings/user/<you>/page/apitokens/` and save it to `.conduit-token` next to the script:
+Create an API token at `https://phabricator.wikimedia.org/settings/user/<you>/page/apitokens/` and save it to `.conduit-token` next to the script.
 
 ## Usage
 
