@@ -81,6 +81,12 @@ def main():
     if not parent or parent["type"] != "TASK":
         die(f"parent task {parent_id} not found")
 
+    # fullName is "T12345: Title"
+    parent_title = parent["fullName"].removeprefix(f"{parent['name']}: ")
+    new_parent_title = (
+        f"{args.emoji} {parent_title}"
+        if args.emoji and not parent_title.startswith(args.emoji) else None)
+
     found = conduit("project.search", {"constraints": {"ids": [project_id]}})["data"]
     if not found:
         die(f"no project with id {project_id} ({HOST}/project/view/{project_id}/)")
@@ -91,6 +97,8 @@ def main():
         if fields.get("parent") else fields["name"])
 
     print(f"\nParent : {parent['fullName']}")
+    if new_parent_title:
+        print(f"         -> renamed to: {parent['name']}: {new_parent_title}")
     print(f"Project: {name}  ({HOST}/project/view/{project_id}/)")
     print(f"Creating {len(tasks)} task(s) on {HOST}")
     print("=" * 70)
@@ -102,6 +110,12 @@ def main():
 
     if input(f"Create {len(tasks)} task(s)? [y/N] ").strip().lower() != "y":
         sys.exit("aborted; nothing was created")
+
+    if new_parent_title:
+        conduit("maniphest.edit", {
+            "objectIdentifier": parent["phid"],
+            "transactions": [{"type": "title", "value": new_parent_title}]})
+        print(f"renamed {parent['uri']}  {new_parent_title}")
 
     for i, (title, description) in enumerate(tasks, 1):
         transactions = [

@@ -16,7 +16,7 @@ Create an API token at `https://phabricator.wikimedia.org/settings/user/<you>/pa
 |---|---|---|
 | `-P` | `--project` | Project id, from its workboard URL `/project/view/1234/`. |
 | `-p` | `--parent-task` | The task the new tasks become subtasks of. |
-| `-e` | `--emoji` | Optional single character to prefix every task title with. |
+| `-e` | `--emoji` | Optional single character to prefix every task title with. The parent task gets the same prefix if it doesn't start with it already. |
 
 The task list is pasted at the prompt and terminated with Ctrl-D. After this, the script shows a preview of the tasks to be created and asks for confirmation.
 
