@@ -9,7 +9,7 @@ Create an API token at `https://phabricator.wikimedia.org/settings/user/<you>/pa
 ## Usage
 
 ```sh
-./phabricate.py --project 1234 --parent-task T12345 [--emoji 🔧]
+./phabricate.py --project 1234 --parent-task T12345 [--emoji 🔧] [--reverse]
 ```
 
 | Flag | | Meaning |
@@ -17,6 +17,7 @@ Create an API token at `https://phabricator.wikimedia.org/settings/user/<you>/pa
 | `-P` | `--project` | Project id, from its workboard URL `/project/view/1234/`. |
 | `-p` | `--parent-task` | The task the new tasks become subtasks of. |
 | `-e` | `--emoji` | Optional single character to prefix every task title with. The parent task gets the same prefix if it doesn't start with it already. |
+| `-r` | `--reverse` | Create the tasks from last to first. New tasks land on top of their workboard column, so this keeps the first task of the list at the top. |
 
 The task list is pasted at the prompt and terminated with Ctrl-D. After this, the script shows a preview of the tasks to be created and asks for confirmation.
 

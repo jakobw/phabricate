@@ -59,6 +59,9 @@ def main():
     parser.add_argument(
         "-e", "--emoji", metavar="🔧",
         help="single character to prefix every task title with")
+    parser.add_argument(
+        "-r", "--reverse", action="store_true",
+        help="create the tasks last to first, so the first one ends up on top of the workboard column")
     args = parser.parse_args()
     project_id, parent_id = args.project, args.parent_task
 
@@ -71,6 +74,8 @@ def main():
     tasks = parse_tasks(sys.stdin.read())
     if args.emoji:
         tasks = [(f"{args.emoji} {title}", body) for title, body in tasks]
+    if args.reverse:
+        tasks.reverse()
     if not tasks:
         die("no tasks found")
     for title, _ in tasks:
